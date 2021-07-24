@@ -1,14 +1,15 @@
 const router = require('express').Router();
-const { Post, User, Comment } = require('../models');
+const { Post, User } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
+    // Get all posts and JOIN with user data
     const postData = await Post.findAll({
       include: [
         {
           model: User,
-          // attributes: ['name'],
+          attributes: ['name'],
         },
       ],
     });
@@ -34,15 +35,10 @@ router.get('/post/:id', async (req, res) => {
           model: User,
           attributes: ['name'],
         },
-        {
-          model: Comment,
-          include:[User]
-        },
       ],
     });
 
     const post = postData.get({ plain: true });
-    console.log(">>>>>>>>>>>>>>>",post)
 
     res.render('post', {
       ...post,
@@ -53,8 +49,10 @@ router.get('/post/:id', async (req, res) => {
   }
 });
 
+// Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {
+    // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
       include: [{ model: Post }],
@@ -72,6 +70,7 @@ router.get('/profile', withAuth, async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
     res.redirect('/profile');
     return;
