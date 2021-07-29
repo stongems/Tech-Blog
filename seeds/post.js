@@ -3,29 +3,17 @@ const { Post } = require('../models');
 
 const postData = [
   {
-    tag_name: 'rock music',
+    name: "Motorcycles",
+    description: "Two wheels to freedom",
   },
   {
-    tag_name: 'pop music',
+    name: "Off-Roading",
+    description: "The road less traveled",
   },
   {
-    tag_name: 'blue',
-  },
-  {
-    tag_name: 'red',
-  },
-  {
-    tag_name: 'green',
-  },
-  {
-    tag_name: 'white',
-  },
-  {
-    tag_name: 'gold',
-  },
-  {
-    tag_name: 'pop culture',
-  },
+    name: "Camping",
+    description: "Who needs a house when you have the woods",
+  }
 ];
 
 const seedPosts = () => Post.bulkCreate(postData);
