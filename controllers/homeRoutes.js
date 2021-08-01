@@ -83,17 +83,15 @@ router.get('/login', (req, res) => {
 // ===============================================================
 
 router.get('/createPost', (req,res) => {
-if (req.session.create_post) {
-  res.redirect('/createPost');
-  return;
-}
+ 
+  res.render('createPost');
+  
+
 });  
 
 router.get('/editPost', (req,res) => {
-if (req.session.edit_post) {
-  res.redirect('/editPost');
-  return;
-}
+  res.render('editPost');
+
 })
 
 
