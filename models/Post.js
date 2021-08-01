@@ -14,6 +14,7 @@ Post.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "empty"
     },
     description: {
       type: DataTypes.STRING,
