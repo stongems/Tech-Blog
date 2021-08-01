@@ -79,5 +79,23 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+// ===============================================================
+// ===============================================================
+
+router.get('/createPost', (req,res) => {
+if (req.session.create_post) {
+  res.redirect('/createPost');
+  return;
+}
+});  
+
+router.get('/editPost', (req,res) => {
+if (req.session.edit_post) {
+  res.redirect('/editPost');
+  return;
+}
+})
+
+
 
 module.exports = router;
