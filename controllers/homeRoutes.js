@@ -89,8 +89,29 @@ router.get('/createPost', (req,res) => {
 
 });  
 
-router.get('/editPost', (req,res) => {
-  res.render('editPost');
+router.get('/posts/:id', async (req,res) => {
+  console.log(req.params.id)
+  const postData = await Post.findOne({
+    where:{
+      id:parseInt(req.params.id)
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['name'],
+      },
+    ],
+  });
+
+  // Serialize data so the template can read it
+  const posts = postData.get({ plain: true });
+
+  console.log(posts)
+  // Pass serialized data and session flag into template
+  res.render('editPost', { 
+    blogPosts:posts, 
+    logged_in: req.session.logged_in 
+  });
 
 })
 
