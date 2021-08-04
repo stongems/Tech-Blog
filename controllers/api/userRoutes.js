@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
 
     if (!validPassword) {
       res
-        .s/tatus(400)
+        .status(400)
         .json({ message: 'Incorrect email or password, please try again' });
       return;
     }

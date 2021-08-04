@@ -16,11 +16,10 @@ router.post("/", withAuth, async (req, res) => {
 });
 
 router.delete("/:id", withAuth, async (req, res) => {
-  try {
+  // try {
     const postData = await Post.destroy({
       where: {
         id: req.params.id,
-        user_id: req.session.user_id,
       },
     });
     if (!postData) {
@@ -28,9 +27,9 @@ router.delete("/:id", withAuth, async (req, res) => {
       return;
     }
     res.status(200).json(postData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
 });
 
 router.post('/', withAuth, async (req, res) => {
@@ -46,12 +45,13 @@ router.post('/', withAuth, async (req, res) => {
 router.put('/:id', withAuth, async (req, res) => {
   console.log(req.params.id, req.body)
 	// try {
-        const newComment = await Post.updateOne
+        const newComment = await Post.update
 		(req.body,{
       where: {
         id: req.params.id
       }
     })
+     console.log(newComment)
         res.status(200).json(newComment);
 	// } catch (err) {
 	// 	res.status(400).json(err);
